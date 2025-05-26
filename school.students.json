@@ -1,0 +1,55 @@
+[{
+  "_id": {
+    "$oid": "683341ae45b45861bc6c4bd0"
+  },
+  "name": "Luffy",
+  "age": 19,
+  "gpa": 1.5
+},
+{
+  "_id": {
+    "$oid": "6833445645b45861bc6c4bd1"
+  },
+  "name": "Zoro",
+  "age": 21,
+  "gpa": 2.8
+},
+{
+  "_id": {
+    "$oid": "6833445645b45861bc6c4bd2"
+  },
+  "name": "Usopp",
+  "age": 19,
+  "gpa": 2.2
+},
+{
+  "_id": {
+    "$oid": "6833445645b45861bc6c4bd3"
+  },
+  "name": "Sanji",
+  "age": 21,
+  "gpa": 2.5
+},
+{
+  "_id": {
+    "$oid": "683358db45b45861bc6c4bd8"
+  },
+  "name": "Chopper",
+  "age": 17,
+  "gpa": 3.8,
+  "fullTime": false,
+  "registerDate": {
+    "$date": "2025-05-25T17:52:27.347Z"
+  },
+  "graduationDate": null,
+  "courses": [
+    "Physiology",
+    "Biochemistry",
+    "Embryology"
+  ],
+  "address": {
+    "street": "123 Drum Island Hospital Rd.",
+    "city": "Drum Kingdom",
+    "zip": 1234
+  }
+}]
