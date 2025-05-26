@@ -17,7 +17,7 @@ Think of each document as a single row in a table in SQL
 Data in each document is stored as field value-pairs
 Similar to a JSON format, but it's technically BSON, Binary JavaScript Object Notation but it behaves very similarly for all intents and purposes
 The general idea is that data which is frequently accessed together is stored together, rather than in separate tables because SQL joins are complex
-``
+```
 {
    name: 'Spongebob',
    age: 30,
@@ -37,21 +37,21 @@ The general idea is that data which is frequently accessed together is stored to
    fullTime: true, 
 }
 
-``
+```
 
 Here is how a NoSQL database is arranged
 
 A document
 Is a group of field value-pairs to represent an object
-![A document](docs/Document.png)
+   ![A document](docs/Document.png)
 
 A collection
 Is a group of one or more documents
-![A collection](docs/Collection.png)
+   ![A collection](docs/Collection.png)
 
 A databse
 Is a group of one or more collections
-![A database](docs/Database.png)
+   ![A database](docs/Database.png)
 
 This makes working with and scaling our databse easy
 
@@ -76,7 +76,7 @@ Within a set of parenthesis we pass in an argument for a name for the collection
 `db.createCollection("students")`
 
 To drop a current database we use `db.dropDatabase()` method
-![Create a collection and drop a database](docs/Create_collection_and_drop_database.png)
+   ![Create a collection and drop a database](docs/Create_collection_and_drop_database.png)
 
 
 How to insert documents into a MongoDB database
@@ -96,7 +96,7 @@ Each field-value pair is comma separated
 
 To return all documents we use the find method
 `db.students.find()`
-![InserOne and find methods](docs/InsertOne_and_find_method.png)
+   ![InserOne and find methods](docs/InsertOne_and_find_method.png)
 
 You can insert more than one document at a time by using the insertMany() function
 
@@ -107,7 +107,7 @@ Within a set of square brackets add a set of currly braces all comma separates a
 The array contains several documents
 Each document is enclosed with a set of currly brackets
 Within each document you can have as many field-value pairs as you like, they all don't need to be consistent
-![InsertMany method](docs/InsertMany.png)
+   ![InsertMany method](docs/InsertMany.png)
 
 Basic data types in MongoDB
 1. A string 
@@ -138,7 +138,7 @@ If you don't pass any arguments to the date constructor, you'll use the current 
 8. Nested documents
 - Good for addresses
 - To create a nested document you use a set of currly braces,within the nested document we can list some field value pairsCo
-![MongoDB Data Types](docs/MongoDb_data_types.png)
+   ![MongoDB Data Types](docs/MongoDb_data_types.png)
 
 How to sort and limit documents in MongoDB
 
@@ -147,8 +147,128 @@ To sort documents into some sort of order we type `db.<name of the collection>.f
 The sort()
 Takes a document by which field wwould we like to sort
 Below shows how to sort names in alphabetical order 1
-![Sort Name Field In Alphabetical Order](docs/Sort_Alphabetical_Order.png)
+
+`db.students.find().sort({name:1})`
+
+   ![Sort Name Field In Alphabetical Order](docs/Sort_Alphabetical_Order.png)
 
 Below shows how to sort names in reverse alphabetical order -1
-![Sort Name Field In Reverse Alaphabetical Order](docs/Sort_R_Alphabetical_Order.png)
+`db.students.find().sort({name:-1})`
+
+   ![Sort Name Field In Reverse Alaphabetical Order](docs/Sort_R_Alphabetical_Order.png)
+
+Sort documents by GPA in ascending order
+`db.students.find().sort({gpa:1})`
+
+Sort documents by GPA in descending order
+`db.students.find().sort({gpa:-1})`
+
+
+The limit method
+Allows us to limit the amount of documents that are returned to us
+
+`db.students.find().limit(here we pass the number of documents we would like returned to us as an argument)`
+
+example passing one document NB// Here documents are sorted by Objectid
+
+`db.students.find().limit(1)`
+
+![Limit One Document](docs/limit_1.png)
+
+We can combine both the sort and the limit method
+
+Return the students with the highest gpa
+
+`db.students.find().sort({gpa:-1}).limit(1)`
+
+![Student With The Highest GPA](docs/sort_and_limit.png)
+
+The find method returns all documents in the collection
+what to do if you want specific documents?
+ we add some arguments to the find method
+ `db.students.find({query},{projection})`
+
+ 2 parameters that we can send the arguments to
+
+ 1st parameter
+ when you're trying to limit the results
+ the first argument is a document object, the parameter is the query parameter - it specifies selection filters i.e if you need one student, list the criteria
+
+ if you want a student named Zoro
+
+ `db.students.find({name:"Zoro"})`
+
+ ![Find Method With Query Parameter](docs/find_method_query.png)
+
+ Find any student with a GPA of 2.5
+
+ `db.students.find({gpa:2.5})`
+
+You can even use more than one filter
+- search for any student that has a GPA of 3.8 as well as fullTime being false
+- Each filter is comma separated within the document body
+
+
+`db.students.find({gpa:3.8, fullTime:false})`
+
+![Find Method With Two Filters](docs/find_method_2_filters.png)
+
+2st parameter
+When you're looking for specific fields
+To add the projection parameter, pass another document body, their each comma separated
+
+ `db.students.find({query},{projection})`
+
+
+If you don't specify the query parameter you will return all documents
+with the projection parameter you can return specific fields
+
+say for example you don't want all the info availble, just each student name, you can set the field to be true or use 1
+
+Return every document but only give their name
+
+`db.students.find({},{name:true})`
+
+If you also don't want the objectId, just the student names set it to false within the projection parameter
+
+`db.students.find({},{_id:false, name:true})`
+
+![Find Method Projection Parameter](docs/projection_parameter.png)
+
+Find every student name as well as their gpa
+
+`db.students.find({},{_id:false, name:true, gpa:true})`
+
+Updating documents in MongoDB
+You can either update one document or update many
+
+updateOne method
+There are two parameter setups, filter and update
+filter is the selection criteria for the update
+update what are the modifications that we would like to apply
+`db.students.updateOne({filter} {update})`
+
+
+
+within a set of curly braces, pass some criteria
+Update anybody's name that's Sanji add fullTime field
+
+the second parameter, is another document body (is the update parameter what are the modifications that we would like to apply)
+use the set operate which is preseeded with the $
+The set operater replaces the value of the field, after the set operator add a colon, then another set of curly braces- that's where we can make changes
+
+you can add or change the value of the field
+Sanji doesn't have a fullTime field, if this field already exist we would update it
+
+`db.students.updateOne({name:"Sanji"}, {$set:{fullTime:true}})`
+
+![Update One Method](docs/update_one_method.png)
+
+With the filter argument, If working with larger datasets it's possible that more than 2 people can have the same name, it;s safe to update with the objectId because their are unique for each document
+
+Update Luffy using the ObjectId and set fullTime field to be false
  
+ ![Update One Method_](docs/objectId_filter.png)
+
+ You can unset the field by using the unset operator
+ To remove a field, set the value to be an empty string

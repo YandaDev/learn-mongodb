@@ -4,7 +4,8 @@
   },
   "name": "Luffy",
   "age": 19,
-  "gpa": 1.5
+  "gpa": 1.5,
+  "fullTime": false
 },
 {
   "_id": {
@@ -20,7 +21,8 @@
   },
   "name": "Usopp",
   "age": 19,
-  "gpa": 2.2
+  "gpa": 2.2,
+  "fullTime": false
 },
 {
   "_id": {
@@ -28,7 +30,8 @@
   },
   "name": "Sanji",
   "age": 21,
-  "gpa": 2.5
+  "gpa": 2.5,
+  "fullTime": true
 },
 {
   "_id": {
